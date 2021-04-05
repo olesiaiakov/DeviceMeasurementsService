@@ -1,6 +1,9 @@
 ﻿using System;
+using System.Configuration;
 using System.Net.Http;
+using Autofac;
 using Microsoft.Owin.Hosting;
+using Serilog;
 
 namespace DeviceMessagesConsumer
 {
@@ -8,10 +11,15 @@ namespace DeviceMessagesConsumer
     {
         public static void Main(string[] args)
         {
-            string baseAddress = "http://localhost:9000/"; 
-
+            Log.Logger = new LoggerConfiguration()
+                .WriteTo.Console()
+                .CreateLogger();
+            
             // Start OWIN host 
+            string baseAddress = ConfigurationManager.AppSettings["baseAddress"];
             WebApp.Start<Startup>(url: baseAddress);
+            Log.Information($"Started on {baseAddress}");
+            
             Console.ReadLine();
         }
     }

@@ -2,13 +2,14 @@
 using DeviceMessagesConsumer.Areas.V1.Controllers.Models;
 using DeviceMessagesConsumer.DataAccess.Entities;
 
-namespace DeviceMessagesConsumer.Processing
+namespace DeviceMessagesConsumer.Querying
 {
     public class MappingProfile : Profile
     {
         public MappingProfile()
         {
-            CreateMap<DeviceMeasurementCreateModel, Measurement>();
+            CreateMap<Device, DeviceModel>()
+                .ForMember(dest => dest.MeasuresCount, opt => opt.MapFrom(src => src.Measurements.Count));
         }
     }
 }

@@ -7,13 +7,13 @@ namespace DeviceMessagesConsumer.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.4.4")]
-    public sealed partial class Device_Measurements_Added : IMigrationMetadata
+    public sealed partial class Device_Measurement_Added : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(Device_Measurements_Added));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(Device_Measurement_Added));
         
         string IMigrationMetadata.Id
         {
-            get { return "202104042139482_Device_Measurements_Added"; }
+            get { return "202104052136437_Device_Measurement_Added"; }
         }
         
         string IMigrationMetadata.Source

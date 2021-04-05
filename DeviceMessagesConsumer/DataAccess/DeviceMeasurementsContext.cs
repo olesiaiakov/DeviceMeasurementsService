@@ -3,7 +3,7 @@ using DeviceMessagesConsumer.DataAccess.Entities;
 
 namespace DeviceMessagesConsumer.DataAccess
 {
-    internal class DeviceMeasurementsContext : DbContext
+    public class DeviceMeasurementsContext : DbContext
     {
         public DeviceMeasurementsContext() : base("mssql")
         {
@@ -21,6 +21,8 @@ namespace DeviceMessagesConsumer.DataAccess
                 .HasRequired(m => m.Device)
                 .WithMany(d => d.Measurements)
                 .HasForeignKey(m => m.DeviceId);
+
+            modelBuilder.Entity<Measurement>().HasIndex(m => new { m.DeviceId, m.MeasuredParameterType, m.MeasuredAt }).IsUnique();
         }
     }
 }
