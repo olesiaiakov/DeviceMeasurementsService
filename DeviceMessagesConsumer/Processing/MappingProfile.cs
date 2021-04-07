@@ -8,7 +8,7 @@ namespace DeviceMessagesConsumer.Processing
     {
         public MappingProfile()
         {
-            CreateMap<DeviceMeasurementCreateModel, Measurement>();
+            CreateMap<DeviceMeasurementCreateModel, Measurement>(MemberList.Source);
         }
     }
 }

@@ -5,8 +5,6 @@ using AutoMapper;
 using DeviceMessagesConsumer.DataAccess;
 using DeviceMessagesConsumer.Processing;
 using DeviceMessagesConsumer.Querying;
-using Microsoft.Owin.Logging;
-using Serilog.Core;
 
 namespace DeviceMessagesConsumer
 {
@@ -16,13 +14,13 @@ namespace DeviceMessagesConsumer
         {
             var builder = new ContainerBuilder();
             builder.RegisterApiControllers(Assembly.GetExecutingAssembly());
-            
+
             var configuration = new MapperConfiguration(c =>
             {
                 c.AddProfile<Processing.MappingProfile>();
                 c.AddProfile<Querying.MappingProfile>();
             });
-            
+
             var mapper = configuration.CreateMapper();
 
             builder
@@ -30,13 +28,13 @@ namespace DeviceMessagesConsumer
                 .WithParameter(new TypedParameter(typeof(IMapper), mapper))
                 .As<IProcessingService>()
                 .InstancePerLifetimeScope();
-            
+
             builder
                 .RegisterType<QueryingService>()
                 .WithParameter(new TypedParameter(typeof(IMapper), mapper))
                 .As<IQueryingService>()
                 .InstancePerLifetimeScope();
-            
+
             builder
                 .RegisterType<DeviceMeasurementsContext>()
                 .InstancePerLifetimeScope();

@@ -9,7 +9,7 @@ namespace DeviceMessagesConsumer.Querying
         public MappingProfile()
         {
             CreateMap<Device, DeviceModel>()
-                .ForMember(dest => dest.MeasuresCount, opt => opt.MapFrom(src => src.Measurements.Count));
+                .ForMember(dest => dest.MeasuresCount, opts => opts.MapFrom(src => src.Measurements.Count));
         }
     }
 }

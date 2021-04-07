@@ -1,7 +1,4 @@
-﻿using System;
-using System.Data.Entity;
-using System.Data.Entity.Migrations;
-using System.Linq;
+﻿using System.Data.Entity.Migrations;
 
 namespace DeviceMessagesConsumer.Migrations
 {
@@ -11,5 +8,5 @@ namespace DeviceMessagesConsumer.Migrations
         {
             AutomaticMigrationsEnabled = false;
         }
-    } 
+    }
 }

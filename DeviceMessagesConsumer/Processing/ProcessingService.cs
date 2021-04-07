@@ -1,10 +1,7 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Data.Entity;
-using System.Data.Entity.Infrastructure;
 using System.Threading.Tasks;
-using Autofac.Features.OwnedInstances;
 using AutoMapper;
 using DeviceMessagesConsumer.Areas.V1.Controllers.Models;
 using DeviceMessagesConsumer.DataAccess;
@@ -15,10 +12,10 @@ namespace DeviceMessagesConsumer.Processing
 {
     internal class ProcessingService : IProcessingService
     {
-        private readonly Func<Owned<DeviceMeasurementsContext>> dbContextFactory;
+        private readonly Func<DeviceMeasurementsContext> dbContextFactory;
         private readonly IMapper mapper;
-        
-        public ProcessingService(Func<Owned<DeviceMeasurementsContext>> dbContext, IMapper mapper)
+
+        public ProcessingService(Func<DeviceMeasurementsContext> dbContext, IMapper mapper)
         {
             this.dbContextFactory = dbContext;
             this.mapper = mapper;
@@ -28,30 +25,34 @@ namespace DeviceMessagesConsumer.Processing
         {
             using (var ownedFactory = dbContextFactory())
             {
-                var dbContext = ownedFactory.Value;
+                var dbContext = ownedFactory;
 
                 var device = await dbContext.Devices.SingleOrDefaultAsync(d => d.Id == deviceId);
                 if (device == null)
                 {
+                    Log.Warning("Received message from unknown device '{DeviceId}'", deviceId);
                     throw new InvalidOperationException("Device with such id was not found");
                 }
-                
+
                 if (!device.IsActive)
                 {
+                    Log.Warning("Received message from inactive device '{DeviceId}'", deviceId);
                     throw new InvalidOperationException("Device is not active anymore");
                 }
 
                 var deviceMeasurements = mapper.Map<ICollection<Measurement>>(model);
+                var now = DateTimeOffset.UtcNow;
                 foreach (var deviceMeasurement in deviceMeasurements)
                 {
                     deviceMeasurement.DeviceId = deviceId;
+                    deviceMeasurement.CreatedAt = now;
                 }
 
                 dbContext.Measurements.AddRange(deviceMeasurements);
-                
+
                 await dbContext.SaveChangesAsync();
 
-                Log.Information("Device {DeviceId} measurements were added", deviceId);
+                Log.Information("Device '{DeviceId}': {Count} measurement(s) added", deviceId, deviceMeasurements.Count);
             }
         }
     }

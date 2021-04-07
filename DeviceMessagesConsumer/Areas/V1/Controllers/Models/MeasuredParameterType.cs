@@ -4,6 +4,6 @@
     {
         Temperature = 0,
         Humidity = 1,
-        Pressure = 2
+        Pressure = 2,
     }
 }

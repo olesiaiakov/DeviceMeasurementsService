@@ -25,7 +25,7 @@ namespace DeviceMessagesConsumer.Areas.V1.Controllers
         {
             return processingService.CreateAsync(deviceId, model);
         }
-        
+
         [HttpGet]
         [Route("devices/statistics")]
         public Task<ICollection<DeviceModel>> GetStatisticsAsync()

@@ -2,7 +2,7 @@
 {
     using System;
     using System.Data.Entity.Migrations;
-    
+
     public partial class Device_Measurement_Added : DbMigration
     {
         public override void Up()
@@ -16,7 +16,7 @@
                         IsActive = c.Boolean(nullable: false),
                     })
                 .PrimaryKey(t => t.Id);
-            
+
             CreateTable(
                 "dbo.Measurements",
                 c => new
@@ -31,7 +31,7 @@
                 .PrimaryKey(t => t.Id)
                 .ForeignKey("dbo.Devices", t => t.DeviceId, cascadeDelete: true)
                 .Index(t => new { t.DeviceId, t.MeasuredParameterType, t.MeasuredAt }, unique: true);
-            
+
             Sql(@"exec('
                 SET IDENTITY_INSERT [DeviceMeasurements].[dbo].[Devices] ON
 
@@ -42,7 +42,7 @@
                 SET IDENTITY_INSERT [DeviceMeasurements].[dbo].[Devices] OFF
             ')");
         }
-        
+
         public override void Down()
         {
             DropForeignKey("dbo.Measurements", "DeviceId", "dbo.Devices");
