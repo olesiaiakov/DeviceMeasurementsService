@@ -18,7 +18,7 @@ namespace DeviceMessagesConsumer
                 // Start OWIN host
                 string baseAddress = ConfigurationManager.AppSettings["baseAddress"];
                 WebApp.Start<Startup>(url: baseAddress);
-                Log.Information($"Started on {baseAddress}");
+                Log.Information("Started on {baseAddress}", baseAddress);
             }
             catch (Exception e)
             {

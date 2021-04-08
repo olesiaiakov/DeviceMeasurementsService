@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Net;
-using System.Threading;
 using System.Threading.Tasks;
 using ClientSimulator.Models;
 using Flurl;
@@ -62,14 +61,14 @@ namespace ClientSimulator
                     .AppendPathSegment("measurements")
                     .PostJsonAsync(model);
 
-                Log.Information($"Device {deviceId} sent a request with {model.Count} measurement(s)");
+                Log.Information("Device {deviceId} sent a request with {modelCount} measurement(s)", deviceId, model.Count);
             }
             catch (FlurlHttpTimeoutException) {
                 Log.Error("Timeout occured");
             }
             catch (FlurlHttpException e)
             {
-                Log.Error($"Error returned from {e.Call.Request.Url}:");
+                Log.Error("Error returned from {url}:", e.Call.Request.Url);
                 if (e.StatusCode == (int)HttpStatusCode.InternalServerError)
                 {
                     var error = await e.GetResponseJsonAsync();
@@ -77,7 +76,7 @@ namespace ClientSimulator
                 }
                 else
                 {
-                    Log.Error($"{e.StatusCode} {e.GetBaseException().Message}");
+                    Log.Error(e.GetBaseException().Message);
                 }
             }
         }

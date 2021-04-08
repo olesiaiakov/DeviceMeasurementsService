@@ -290,7 +290,8 @@
         </Reference>
     </ItemGroup>
     <ItemGroup>
-        <Compile Include="App_Start\SwaggerConfig.cs" />
+        <Compile Include="Processing\DbUpdateExceptionExtension.cs" />
+        <Compile Include="Swagger\SwaggerConfig.cs" />
         <Compile Include="Areas\V1\Controllers\DeviceMeasurementsController.cs" />
         <Compile Include="Areas\V1\Controllers\Models\DeviceModel.cs" />
         <Compile Include="Areas\V1\Controllers\Models\DeviceMeasurementCreateModel.cs" />

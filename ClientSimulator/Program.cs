@@ -24,7 +24,7 @@ namespace ClientSimulator
                 var deviceId = Convert.ToInt16(args[0]);
                 var interval = Convert.ToInt16(args[1]);
 
-                Log.Information($"Will send request to {ResourceUrl} every {interval} ms");
+                Log.Information("Will send request to {ResourceUrl} every {interval} ms", ResourceUrl, interval);
 
                 var client = new DeviceMeasurementsClient(ResourceUrl);
                 await client.StartSendingRequestsAsync(deviceId, interval);
