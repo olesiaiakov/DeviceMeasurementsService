@@ -25,9 +25,9 @@ namespace ClientSimulator
             while (true)
             {
                 var model = CreateRandomDeviceMeasurements();
-                
+
                 await SendRequestAsync(deviceId, model);
-                
+
                 await Task.Delay(period);
             }
         }
@@ -63,7 +63,8 @@ namespace ClientSimulator
 
                 Log.Information("Device {deviceId} sent a request with {modelCount} measurement(s)", deviceId, model.Count);
             }
-            catch (FlurlHttpTimeoutException) {
+            catch (FlurlHttpTimeoutException)
+            {
                 Log.Error("Timeout occured");
             }
             catch (FlurlHttpException e)

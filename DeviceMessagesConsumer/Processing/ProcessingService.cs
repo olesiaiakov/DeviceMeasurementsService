@@ -46,7 +46,7 @@ namespace DeviceMessagesConsumer.Processing
                 }
 
                 var deviceMeasurements = mapper.Map<ICollection<Measurement>>(model);
-                
+
                 var now = DateTimeOffset.UtcNow;
                 foreach (var deviceMeasurement in deviceMeasurements)
                 {
@@ -82,10 +82,10 @@ namespace DeviceMessagesConsumer.Processing
         private void ThrowBadRequestError(string error)
         {
             Log.Warning(error);
-            
+
             var response = new HttpResponseMessage(HttpStatusCode.BadRequest);
             response.Content = new StringContent(error);
-            
+
             throw new HttpResponseException(response);
         }
     }

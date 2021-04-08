@@ -33,7 +33,6 @@ namespace ClientSimulator
             {
                 Log.Error(e.GetBaseException().Message);
             }
-
         }
     }
 }

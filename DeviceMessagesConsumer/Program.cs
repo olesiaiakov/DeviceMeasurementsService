@@ -24,7 +24,7 @@ namespace DeviceMessagesConsumer
             {
                 Log.Error(e.GetBaseException().Message);
             }
-            
+
             Console.ReadLine();
         }
     }

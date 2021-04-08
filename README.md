@@ -21,6 +21,7 @@ Using technologies and libraries:
 - [EntityFramework] (Code First approach)
 - [Serilog]
 - [Swagger]
+
 For unit test
 - [NUnit]
 - [AutoFixture]
